@@ -89,19 +89,18 @@ class Twitter
             $file = '/tweets/' . $username . '/' . $tw->id . '.json';
             $complete_tweet = '/complete_tweets/' . $username . '/' . $tw->id . '.json';
             $exists = $filesystem->has($complete_tweet);
-            $doc = [];
+
             if (!$exists) {
-                $doc[] = $this->buildDocument($tw, $file);
+                $doc = '['.json_encode($this->buildDocument($tw, $file)).']';
                 $filesystem->write($complete_tweet, json_encode((array)$tw));
+                $domainClient = $this->cloudsearch->getDomainClient('phpuk');
+
+                $domainClient->uploadDocuments([
+                    'documents' => $doc,
+                    'contentType' => 'application/json'
+                ]);
             }
         }
-
-        $domainClient = $this->cloudsearch->getDomainClient('phpuk');
-        ;
-        var_dump($domainClient->uploadDocuments([
-            'documents' => $doc,
-            'contentType' => 'application/json'
-        ]));
     }
 
     public function saveToCloudSearch()
