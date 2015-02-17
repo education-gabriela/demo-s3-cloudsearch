@@ -63,7 +63,7 @@ class Twitter
         $doc = [
             'screen_name' => $tweet->user->screen_name,
             'text' => $tweet->text,
-            'contet' => $tweet->text,
+            'content' => $tweet->text,
             'id' => $tweet->id,
             'file' => $file,
             'tweet' => $tweet
