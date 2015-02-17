@@ -21,11 +21,11 @@ class Twitter
     public function buildExchange()
     {
         $this->api_exchange = new \TwitterAPIExchange($this->config);
-        $this->cloudsearch =  $client = CloudSearchClient::factory(array(
+        /*$this->cloudsearch =  $client = CloudSearchClient::factory(array(
             'key'    => $this->config['aws']['api_key'],
             'secret' => $this->config['aws']['api_secret'],
             'region' => $this->config['aws']['region'],
-        ));
+        ));*/
     }
 
     public function add($username)
