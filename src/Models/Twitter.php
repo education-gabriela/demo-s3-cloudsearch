@@ -65,13 +65,12 @@ class Twitter
             'text' => $tweet->text,
             'content' => $tweet->text,
             'id' => $tweet->id,
-            'file' => $file,
-            'tweet' => $tweet
+            'file' => $file
         ];
 
         $cDoc = [
             'type' => 'add',
-            'id' => (int) $tweet->id,
+            'id' => (int)$tweet->id,
             'fields' => $doc
         ];
 
@@ -88,10 +87,12 @@ class Twitter
 
         foreach ($tweets as $tw) {
             $file = '/tweets/' . $username . '/' . $tw->id . '.json';
+            $complete_tweet = '/complete_tweets/' . $username . '/' . $tw->id . '.json';
             $exists = $filesystem->has($file);
             if (!$exists) {
                 $doc = $this->buildDocument($tw, $file);
                 $filesystem->write($file, json_encode($doc));
+                $filesystem->write($complete_tweet, json_encode((array)$tw));
             }
 
         }
@@ -99,7 +100,6 @@ class Twitter
 
     public function saveToCloudSearch()
     {
-
 
 
     }
