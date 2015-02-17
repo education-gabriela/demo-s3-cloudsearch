@@ -83,7 +83,7 @@ class Twitter
             $exists = $filesystem->has($file);
             if (!$exists) {
                 $doc = $this->buildDocument($tw, $file);
-                $filesystem->write($doc, json_encode($tw));
+                $filesystem->write($file, json_encode($doc));
             }
 
         }
