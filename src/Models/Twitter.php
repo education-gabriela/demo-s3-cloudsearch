@@ -3,6 +3,7 @@
 namespace Gabidavila\S3cloudsearch\Models;
 
 use Gabidavila\S3cloudsearch\Databases\DbMongo;
+use Aws\CloudSearch\CloudSearchClient;
 
 class Twitter
 {
@@ -20,6 +21,11 @@ class Twitter
     public function buildExchange()
     {
         $this->api_exchange = new \TwitterAPIExchange($this->config);
+        $this->cloudsearch =  $client = CloudSearchClient::factory(array(
+            'key'    => $this->config['aws']['api_key'],
+            'secret' => $this->config['aws']['api_secret'],
+            'region' => $this->config['aws']['region'],
+        ));
     }
 
     public function add($username)
@@ -51,10 +57,17 @@ class Twitter
             ->performRequest());
     }
 
-    public function call($url, $requestMethod)
+    public function buildDocument($tweet, $file)
     {
+        $doc = [
+            'screen_name' => $tweet->screen_name,
+            'text' => $tweet->description,
+            'id' => $tweet->id,
+            'file' => $file,
+            'tweet' => $tweet
+        ];
 
-
+        return $doc;
     }
 
     public function saveTweetsToS3($filesystem, $username, $count = 10)
@@ -65,16 +78,21 @@ class Twitter
             return false;
         }
 
-
-//var_dump($tweets);die;
-
         foreach ($tweets as $tw) {
             $file = '/tweets/' . $username . '/' . $tw->id . '.json';
             $exists = $filesystem->has($file);
             if (!$exists) {
-                $filesystem->write($file, json_encode($tw));
+                $doc = $this->buildDocument($tw, $file);
+                $filesystem->write($doc, json_encode($tw));
             }
 
         }
+    }
+
+    public function saveToCloudSearch()
+    {
+
+
+
     }
 }
