@@ -88,7 +88,7 @@ class Twitter
         foreach ($tweets as $tw) {
             $file = '/tweets/' . $username . '/' . $tw->id . '.json';
             $complete_tweet = '/complete_tweets/' . $username . '/' . $tw->id . '.json';
-            $exists = $filesystem->has($file);
+            $exists = $filesystem->has($complete_tweet);
             if (!$exists) {
                 $doc = $this->buildDocument($tw, $file);
                 $filesystem->write($file, json_encode($doc));
