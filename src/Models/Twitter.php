@@ -61,13 +61,19 @@ class Twitter
     {
         $doc = [
             'screen_name' => $tweet->screen_name,
-            'text' => $tweet->description,
+            'text' => $tweet->text,
             'id' => $tweet->id,
             'file' => $file,
             'tweet' => $tweet
         ];
 
-        return $doc;
+        $cDoc = [
+            'type' => 'add',
+            'id' => (int) $tweet->id,
+            'fields' => $doc
+        ];
+
+        return $cDoc;
     }
 
     public function saveTweetsToS3($filesystem, $username, $count = 10)
