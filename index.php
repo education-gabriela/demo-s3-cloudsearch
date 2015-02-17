@@ -7,5 +7,7 @@ use Gabidavila\S3cloudsearch\Models\Twitter;
 
 $twitter = new Twitter($twitter_config);
 
-$twitter->get('/statuses/user_timeline', 'screen_name=gabidavila&count=10');
+//$twitter->get('/statuses/user_timeline', '?screen_name=gabidavila&count=2');
+$twitter->add('gabidavila');
 
+$twitter->saveTweetsToS3($filesystem, 'gabidavila', 10);

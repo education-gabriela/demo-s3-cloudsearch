@@ -37,4 +37,10 @@ class DbMongo
         $collection = $this->mongo->$db->$collection_name;
         $collection->batchInsert($array);
     }
+
+    public static function createMongoDate($date)
+    {
+        $date = new \DateTime($date);
+        return new \MongoDate($date->format('U'));
+    }
 }
