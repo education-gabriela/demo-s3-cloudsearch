@@ -10,6 +10,7 @@ class Twitter
     protected $config;
     protected $url_prefix;
     protected $api_exchange;
+    protected $cloudsearch;
 
     public function __construct($twitter_config)
     {
@@ -62,6 +63,7 @@ class Twitter
         $doc = [
             'screen_name' => $tweet->screen_name,
             'text' => $tweet->text,
+            'contet' => $tweet->text,
             'id' => $tweet->id,
             'file' => $file,
             'tweet' => $tweet
