@@ -18,30 +18,15 @@
     <link href="/css/main.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-        <!--/.nav-collapse -->
-    </div>
-</nav>
 
 <div class="container">
+
+    <?php if(isset($color)) {?>
+    <div class="alert alert-<?php echo $color ?>" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <?php echo $msg?>
+    </div>
+    <?php } ?>
 
     <div class="starter-template">
         <h1>Amazon S3 / Cloudsearch demo</h1>
@@ -50,7 +35,7 @@
             mostly barebones HTML document.</p>
     </div>
 
-    <div class="col-md-6 col-md-offset-4">
+    <div>
 
         <form action="twitter.php" method="post" class="form-inline">
             <div class="form-group">
@@ -58,7 +43,8 @@
 
                 <div class="input-group input-group-lg">
                     <div class="input-group-addon">@</div>
-                    <input type="text" class="form-control" id="twitter_handle" name="twitter_handle" placeholder="Twitter Handle">
+                    <input type="text" class="form-control" id="twitter_handle" name="twitter_handle"
+                           placeholder="Twitter Handle">
                 </div>
             </div>
             <button type="submit" class="btn btn-primary btn-lg">Add</button>

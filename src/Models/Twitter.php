@@ -25,7 +25,7 @@ class Twitter
     public function add($username)
     {
         if (!$username) {
-            return false;
+            throw new \Exception('No Username Provided');
         }
 
         $mongo = new DbMongo();
