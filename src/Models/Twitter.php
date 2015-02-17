@@ -61,7 +61,7 @@ class Twitter
     public function buildDocument($tweet, $file)
     {
         $doc = [
-            'screen_name' => $tweet->screen_name,
+            'screen_name' => $tweet->user->screen_name,
             'text' => $tweet->text,
             'contet' => $tweet->text,
             'id' => $tweet->id,
