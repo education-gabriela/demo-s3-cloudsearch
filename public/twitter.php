@@ -9,14 +9,16 @@ if($_SERVER['REQUEST_METHOD'] != 'POST') {
 
 try {
     $username = $_POST['twitter_handle'];
-    $twitter = new Twitter($twitter_config);
+    $twitter = new Twitter($config);
     $save = $twitter->add($username);
-    $twitter->saveTweetsToS3($filesystem, $username, 100);
+    $twitter->saveTweetsToS3($filesystem, $username, 15);
 
     $msg = "Successfully added to <b>S3</b>";
     $color = 'success';
 } catch(\Exception $e) {
-    $msg = $e->getMessage();
+    $msg = "<b>{$e->getCode()}</b>: ".$e->getMessage();
+    $msg = $msg .= "<pre>".$e->getFile()."</pre>";
+    $msg .= "<pre>".$e->getTraceAsString()."</pre>";
     $color = 'danger';
 }
 

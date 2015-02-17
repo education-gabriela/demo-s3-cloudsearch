@@ -12,21 +12,21 @@ class Twitter
     protected $api_exchange;
     protected $cloudsearch;
 
-    public function __construct($twitter_config)
+    public function __construct($config)
     {
-        $this->config = $twitter_config;
+        $this->config = $config;
         $this->url_prefix = 'https://api.twitter.com/1.1';
         $this->buildExchange();
     }
 
     public function buildExchange()
     {
-        $this->api_exchange = new \TwitterAPIExchange($this->config);
-        /*$this->cloudsearch =  $client = CloudSearchClient::factory(array(
+        $this->api_exchange = new \TwitterAPIExchange($this->config['twitter']);
+        $this->cloudsearch =  $client = CloudSearchClient::factory(array(
             'key'    => $this->config['aws']['api_key'],
             'secret' => $this->config['aws']['api_secret'],
             'region' => $this->config['aws']['region'],
-        ));*/
+        ));
     }
 
     public function add($username)
@@ -89,13 +89,19 @@ class Twitter
             $file = '/tweets/' . $username . '/' . $tw->id . '.json';
             $complete_tweet = '/complete_tweets/' . $username . '/' . $tw->id . '.json';
             $exists = $filesystem->has($complete_tweet);
+            $doc = [];
             if (!$exists) {
-                $doc = $this->buildDocument($tw, $file);
-                $filesystem->write($file, json_encode($doc));
+                $doc[] = $this->buildDocument($tw, $file);
                 $filesystem->write($complete_tweet, json_encode((array)$tw));
             }
-
         }
+
+        $domainClient = $this->cloudsearch->getDomainClient('phpuk');
+        ;
+        var_dump($domainClient->uploadDocuments([
+            'documents' => $doc,
+            'contentType' => 'application/json'
+        ]));
     }
 
     public function saveToCloudSearch()
