@@ -1,0 +1,22 @@
+{
+  "name": "gabidavila/demo_cloudsearch",
+  "description": "Demonstration of search of data from Amazon S3 into CloudSearch",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Gabriela D'Ávila",
+      "email": "me@gabriela.io"
+    }
+  ],
+  "autoload": {
+    "psr-4" : {
+      "Gabidavila\\S3cloudsearch\\" : "src/"
+    }
+  },
+  "require": {
+    "aws/aws-sdk-php": "~2.7",
+    "symfony/yaml": "~2.6",
+    "j7mbo/twitter-api-php": "dev-master"
+  }
+}
