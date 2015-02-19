@@ -86,12 +86,11 @@ class Twitter
         }
 
         foreach ($tweets as $tw) {
-            $file = '/tweets/' . $username . '/' . $tw->id . '.json';
             $complete_tweet = '/complete_tweets/' . $username . '/' . $tw->id . '.json';
             $exists = $filesystem->has($complete_tweet);
 
             if (!$exists) {
-                $doc = '['.json_encode($this->buildDocument($tw, $file)).']';
+                $doc = '['.json_encode($this->buildDocument($tw, $complete_tweet)).']';
                 $filesystem->write($complete_tweet, json_encode((array)$tw));
                 $domainClient = $this->cloudsearch->getDomainClient('phpuk');
 

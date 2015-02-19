@@ -30,9 +30,7 @@
 
     <div class="starter-template">
         <h1>Amazon S3 / Cloudsearch demo</h1>
-
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a
-            mostly barebones HTML document.</p>
+        <p class="lead">Put a twitter handle below, the last 100 tweets/retweets will be indexed by Cloudsearch and be searchable.</p>
     </div>
 
     <div>
