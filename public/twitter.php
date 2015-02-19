@@ -13,7 +13,7 @@ try {
     $save = $twitter->add($username);
     $twitter->saveTweetsToS3($filesystem, $username, 15);
 
-    $msg = "Successfully added to <b>S3</b>";
+    $msg = "Successfully added to <b>S3</b> and <b>Cloudsearch</b>";
     $color = 'success';
 } catch(\Exception $e) {
     $msg = "<b>{$e->getCode()}</b>: ".$e->getMessage();
